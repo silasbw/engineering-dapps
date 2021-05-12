@@ -85,7 +85,7 @@ async function main() {
   // Public keys for all the accounts the node manages.
   const accounts = await web3.eth.getAccounts();
   console.log(accounts);
-});
+};
 
 main();
 ```
@@ -178,9 +178,15 @@ blockchain. Creat it in `contracts/Storage.sol`:
 pragma solidity ^0.4.18;
 
 contract Storage {
+  address owner;
   uint data;
 
+  function Storage() {
+    this.owner = msg.sender;
+  }
+
   function set(uint value) public {
+    if (msg.sender != this.owner) return;
     data = value;
   }
 
@@ -366,6 +372,13 @@ async function listen() {
 ```
 
 ## Apendix
+
+### Local testnet with geth
+
+https://lightrains.com/blogs/setup-local-ethereum-blockchain-private-testnet
+https://hub.docker.com/r/ethereum/client-go/
+https://blog.abuiles.com/blog/2017/06/13/smart-contracts-for-the-impatient/  
+https://hackernoon.com/ethereum-development-walkthrough-part-2-truffle-ganache-geth-and-mist-8d6320e12269
 
 ### Ethereum wallet
 
